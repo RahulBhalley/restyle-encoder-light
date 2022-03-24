@@ -33,13 +33,18 @@ dataset_paths = {
 
 model_paths = {
 	# models for backbones and losses
-	'ir_se50': '/nfs/weights/pix2profile/model_ir_se50.pth',
-	'resnet34': '/nfs/weights/pix2profile/resnet34-333f7ec4.pth',
-	'moco': '/nfs/weights/pix2profile/moco_v2_800ep_pretrain.pt',
+	# 'ir_se50': '/nfs/weights/pix2profile/model_ir_se50.pth',
+	'ir_se50': 'pretrained_models/model_ir_se50.pth',
+	# 'resnet34': '/nfs/weights/pix2profile/resnet34-333f7ec4.pth',
+	'resnet34': 'pretrained_models/resnet34-333f7ec4.pth',
+	# 'moco': '/nfs/weights/pix2profile/moco_v2_800ep_pretrain.pt',
+	'moco': 'pretrained_models/moco_v2_800ep_pretrain.pt',
 	# stylegan2 generators
-	'stylegan_ffhq': '/nfs/weights/pix2profile/stylegan2-ffhq-config-f.pt',
+	# 'stylegan_ffhq': '/nfs/weights/pix2profile/stylegan2-ffhq-config-f.pt',
+	'stylegan_ffhq': 'pretrained_models/stylegan2-ffhq-config-f.pt',
 	'stylegan_cars': 'pretrained_models/stylegan2-car-config-f.pt',
-	'stylegan_ada_wild': '/nfs/weights/pix2profile/afhqwild.pt',
+	# 'stylegan_ada_wild': '/nfs/weights/pix2profile/afhqwild.pt',
+	'stylegan_ada_wild': 'pretrained_models/afhqwild.pt',
 	# stylegan3 generators
 	'stylegan3_ffhq': '/nfs/weights/stylegan3/stylegan3-r-ffhq-1024x1024.pkl',
 	'stylegan3_ffhq_unaligned': '/nfs/weights/stylegan3/stylegan3-r-ffhqu-1024x1024.pkl',
@@ -48,10 +53,14 @@ model_paths = {
 	# model for face alignment
 	'shape_predictor': '/nfs/weights/pix2profile/shape_predictor_68_face_landmarks.dat',
 	# models for ID similarity computation
-	'curricular_face': '/nfs/weights/pix2profile/CurricularFace_Backbone.pth',
-	'mtcnn_pnet': '/nfs/weights/pix2profile/mtcnn/pnet.npy',
-	'mtcnn_rnet': '/nfs/weights/pix2profile/mtcnn/rnet.npy',
-	'mtcnn_onet': '/nfs/weights/pix2profile/mtcnn/onet.npy',
+	# 'curricular_face': '/nfs/weights/pix2profile/CurricularFace_Backbone.pth',
+	# 'mtcnn_pnet': '/nfs/weights/pix2profile/mtcnn/pnet.npy',
+	# 'mtcnn_rnet': '/nfs/weights/pix2profile/mtcnn/rnet.npy',
+	# 'mtcnn_onet': '/nfs/weights/pix2profile/mtcnn/onet.npy',
+	'curricular_face': 'pretrained_models/CurricularFace_Backbone.pth',
+	'mtcnn_pnet': 'pretrained_models/mtcnn/pnet.npy',
+	'mtcnn_rnet': 'pretrained_models/mtcnn/rnet.npy',
+	'mtcnn_onet': 'pretrained_models/mtcnn/onet.npy',
 	# WEncoders for training on various domains
 	'faces_w_encoder': 'pretrained_models/faces_w_encoder.pt',
 	'cars_w_encoder': '../pretrained_models/cars_w_encoder.pt',
