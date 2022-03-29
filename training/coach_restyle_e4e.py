@@ -190,16 +190,13 @@ class Coach:
 				print(f"{self.global_step} | {self.opts.max_steps}")
 
 				if self.global_step == self.opts.max_steps:
-					print('Reached last step!')
-					exit(0)
-
-				if self.global_step == self.opts.max_steps:
 					print('OMG, finished training!')
 					break
 
 				self.global_step += 1
 				if self.opts.progressive_steps:
 					self.check_for_progressive_training_update()
+			print('We jumped to `while` loop. What?')
 
 	def perform_val_iteration_on_batch(self, x, y):
 		y_hat, latent = None, None
