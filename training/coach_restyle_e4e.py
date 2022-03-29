@@ -190,6 +190,7 @@ class Coach:
 					print('OMG, finished training!')
 					break
 
+				print(f"Current global_step: {self.global_step}")
 				self.global_step += 1
 				if self.opts.progressive_steps:
 					self.check_for_progressive_training_update()
