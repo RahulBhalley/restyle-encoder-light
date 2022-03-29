@@ -151,7 +151,8 @@ class Coach:
 		if self.opts.progressive_steps:
 			self.check_for_progressive_training_update()
 
-		while self.global_step < self.opts.max_steps:
+		# while self.global_step < self.opts.max_steps:
+		while True:
 			for batch_idx, batch in enumerate(self.train_dataloader):
 				x, y = batch
 				x, y = x.to(self.device).float(), y.to(self.device).float()
