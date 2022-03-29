@@ -186,11 +186,16 @@ class Coach:
 					else:
 						self.checkpoint_me(loss_dict, is_best=False)
 
+				print(f"{self.global_step} | {self.opts.max_steps}")
+
+				if self.global_step == self.opts.max_steps:
+					print('Reached last step!')
+					exit(0)
+
 				if self.global_step == self.opts.max_steps:
 					print('OMG, finished training!')
 					break
 
-				print(f"Current global_step: {self.global_step}")
 				self.global_step += 1
 				if self.opts.progressive_steps:
 					self.check_for_progressive_training_update()
