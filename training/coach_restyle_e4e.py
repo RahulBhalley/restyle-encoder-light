@@ -2,6 +2,7 @@ import os
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('Agg')
+from tqdm import tqdm
 
 import torch
 from torch import nn, autograd
@@ -232,7 +233,8 @@ class Coach:
 	def validate(self):
 		self.net.eval()
 		agg_loss_dict = []
-		for batch_idx, batch in enumerate(self.test_dataloader):
+		print('Validating discriminator.')
+		for batch_idx, batch in tqdm(enumerate(self.test_dataloader)):
 			x, y = batch
 			x, y = x.to(self.device).float(), y.to(self.device).float()
 
