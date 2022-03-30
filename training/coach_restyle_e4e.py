@@ -204,7 +204,11 @@ class Coach:
 				self.global_step += 1
 				if self.opts.progressive_steps:
 					self.check_for_progressive_training_update()
-			print('We jumped to `while` loop. What?')
+			print('We jumped to `while` loop. What? Gotta kill it!')
+
+			if self.global_step == self.opts.max_steps:
+				print('Killing training for real.')
+				break
 
 	def perform_val_iteration_on_batch(self, x, y):
 		y_hat, latent = None, None
