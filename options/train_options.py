@@ -66,6 +66,8 @@ class TrainOptions:
                                  help='Interval for logging metrics to tensorboard')
         self.parser.add_argument('--val_interval', default=1000, type=int,
                                  help='Validation interval')
+        self.parser.add_argument('--validate_disc', action='store_true',
+                                 help='Validates discriminator and saves checkpoints')
         self.parser.add_argument('--save_interval', default=None, type=int,
                                  help='Model checkpoint interval')
 
