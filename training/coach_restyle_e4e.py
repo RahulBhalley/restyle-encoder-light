@@ -176,7 +176,7 @@ class Coach:
 
 				# Validation related
 				val_loss_dict = None
-				if self.global_step % self.opts.val_interval == 0 or self.global_step == self.opts.max_steps - 1:
+				if self.global_step % self.opts.val_interval == 0 or self.global_step == self.opts.max_steps:
 					print('Inside val_interval conditional')
 					val_loss_dict = self.validate()
 					print('val_loss_dict = self.validate()')
@@ -186,7 +186,7 @@ class Coach:
 						self.checkpoint_me(val_loss_dict, is_best=True)
 						print('self.checkpoint_me(val_loss_dict, is_best=True) after')
 
-				if self.global_step % self.opts.save_interval == 0 or self.global_step == self.opts.max_steps - 1:
+				if self.global_step % self.opts.save_interval == 0 or self.global_step == self.opts.max_steps:
 					print('Inside save_interval conditional')
 					if val_loss_dict is not None:
 						self.checkpoint_me(val_loss_dict, is_best=False)
@@ -195,7 +195,7 @@ class Coach:
 
 				print(f"{self.global_step} | {self.opts.max_steps}")
 
-				if self.global_step == self.opts.max_steps - 1:
+				if self.global_step == self.opts.max_steps:
 					print('One step behind max_steps but quiting training.')
 					exit(0)
 
