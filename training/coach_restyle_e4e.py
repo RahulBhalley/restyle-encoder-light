@@ -198,12 +198,8 @@ class Coach:
 				print(f"{self.global_step} | {self.opts.max_steps}")
 
 				if self.global_step == self.opts.max_steps:
-					print('One step behind max_steps but quiting training.')
-					exit(0)
-
-				# if self.global_step == self.opts.max_steps:
-				# 	print('OMG, finished training!')
-				# 	break
+					print('OMG, finished training!')
+					break
 
 				self.global_step += 1
 				if self.opts.progressive_steps:
