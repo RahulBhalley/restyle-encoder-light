@@ -237,6 +237,7 @@ class Coach:
 		for batch_idx, batch in tqdm(enumerate(self.test_dataloader)):
 			x, y = batch
 			x, y = x.to(self.device).float(), y.to(self.device).float()
+			print(f"batch_idx: {batch_idx} | x: {x.shape} | y: {y.shape}")
 
 			# validate discriminator on batch
 			avg_image_for_batch = self.avg_image.unsqueeze(0).repeat(x.shape[0], 1, 1, 1)
