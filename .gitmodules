@@ -1,0 +1,3 @@
+[submodule "MobileStyleGAN"]
+	path = MobileStyleGAN
+	url = https://github.com/RahulBhalley/MobileStyleGAN
