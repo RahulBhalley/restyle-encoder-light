@@ -52,6 +52,9 @@ class TrainOptions:
                                  help='Moco feature loss multiplier factor')
 
         # weights and checkpoint paths
+        self.parser.add_argument('--decoder_type', default='StyleGAN2', type=str,
+                                 choices=['StyleGAN2', 'MobileStyleGAN'],
+                                 help='Which decoder to use')
         self.parser.add_argument('--stylegan_weights', default=None, type=str,
                                  help='Path to StyleGAN model weights')
         self.parser.add_argument('--checkpoint_path', default=None, type=str,

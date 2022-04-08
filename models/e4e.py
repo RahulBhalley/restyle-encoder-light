@@ -6,6 +6,8 @@ import torch
 from torch import nn
 
 from models.stylegan2.model import Generator
+from MobileStyleGAN.core.distiller import Distiller
+from MobileStyleGAN.core.utils import load_cfg, load_weights
 from configs.paths_config import model_paths
 from models.encoders import restyle_e4e_encoders
 from utils.model_utils import RESNET_MAPPING
@@ -16,12 +18,24 @@ class e4e(nn.Module):
     def __init__(self, opts):
         super(e4e, self).__init__()
         self.set_opts(opts)
-        self.n_styles = int(math.log(self.opts.output_size, 2)) * 2 - 2
-        # Define architecture
+
+        # Define `n_styles`.
+        if self.opts.decoder_type == 'StyleGAN2':
+            self.n_styles = int(math.log(self.opts.output_size, 2)) * 2 - 2 # 18
+        elif self.opts.decoder_type == 'MobileStyleGAN':
+            self.n_styles = int(math.log(self.opts.output_size, 2)) * 2 + 3 # 23
+        
+        # Define encoder and decoder architectures.
         self.encoder = self.set_encoder()
-        self.decoder = Generator(self.opts.output_size, 512, 8, channel_multiplier=2)
+        if self.opts.decoder_type == 'StyleGAN2':
+            self.decoder = Generator(self.opts.output_size, 512, 8, channel_multiplier=2)
+        elif self.opts.decoder_type == 'MobileStyleGAN':
+            cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
+            cfg = load_cfg(cfg_path)
+            self.decoder = Distiller(cfg)
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
-        # Load weights if needed
+        
+        # Load the weights, if needed.
         self.load_weights()
 
     def set_encoder(self):
