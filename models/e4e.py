@@ -25,6 +25,8 @@ class e4e(nn.Module):
         elif self.opts.decoder_type == 'MobileStyleGAN':
             self.n_styles = int(math.log(self.opts.output_size, 2)) * 2 + 3 # 23
         
+        print(f'n_styles: {self.n_styles}')
+        
         # Define encoder and decoder architectures.
         self.encoder = self.set_encoder()
         if self.opts.decoder_type == 'StyleGAN2':
