@@ -37,6 +37,7 @@ class e4e(nn.Module):
             cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
             cfg = load_cfg(cfg_path)
             self.decoder = Distiller(cfg)
+            self.latent_avg = torch.randn(self.n_styles, 512).to(self.opts.device)
         
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
         
