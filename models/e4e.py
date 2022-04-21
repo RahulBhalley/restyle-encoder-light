@@ -6,8 +6,8 @@ import torch
 from torch import nn
 
 from models.stylegan2.model import Generator
-# from MobileStyleGAN.core.distiller import Distiller
-# from MobileStyleGAN.core.utils import load_cfg, load_weights
+from MobileStyleGAN.core.distiller import Distiller
+from MobileStyleGAN.core.utils import load_cfg, load_weights
 from configs.paths_config import model_paths
 from models.encoders import restyle_e4e_encoders
 from utils.model_utils import RESNET_MAPPING
