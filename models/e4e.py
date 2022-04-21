@@ -31,14 +31,15 @@ class e4e(nn.Module):
         self.encoder = self.set_encoder()
         if self.opts.decoder_type == 'StyleGAN2':
             self.decoder = Generator(self.opts.output_size, 512, 8, channel_multiplier=2)
+            # Load StyleGAN's weights, if needed.
+            self.load_weights()
         elif self.opts.decoder_type == 'MobileStyleGAN':
             cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
             cfg = load_cfg(cfg_path)
             self.decoder = Distiller(cfg)
+        
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
         
-        # Load the weights, if needed.
-        self.load_weights()
 
     def set_encoder(self):
         if self.opts.encoder_type == 'ProgressiveBackboneEncoder':
