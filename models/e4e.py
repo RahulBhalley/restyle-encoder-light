@@ -109,8 +109,8 @@ class e4e(nn.Module):
                                                 return_latents=return_latents)
         elif self.opts.decoder_type == 'MobileStyleGAN':
             codes.squeeze_(0)
-            print(f"codes: {codes.shape}")
-            images, result_latent = self.decoder(codes)
+            # print(f"codes: {codes.shape}")
+            images = self.decoder(codes)
 
         if resize:
             images = self.face_pool(images)
