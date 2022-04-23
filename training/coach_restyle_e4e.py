@@ -520,7 +520,10 @@ class Coach:
 
 	def sample_real_and_fake_latents(self, x):
 		sample_z = torch.randn(self.opts.batch_size, 512, device=self.device)
-		real_w = self.net.decoder.get_latent(sample_z)
+		if self.opts.decoder_type == 'StyleGAN2':
+			real_w = self.net.decoder.get_latent(sample_z)
+		elif self.opts.decoder_type == 'MobileStyleGAN':
+			real_w = self.net.decoder.mapping_net(sample_z)
 		fake_w = self.net.encoder(x)
 		if self.is_progressive_training():  # When progressive training, feed only unique w's
 			dims_to_discriminate = self.get_dims_to_discriminate()
