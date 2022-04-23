@@ -107,7 +107,10 @@ class e4e(nn.Module):
                                                 randomize_noise=randomize_noise,
                                                 return_latents=return_latents)
         elif self.opts.decoder_type == 'MobileStyleGAN':
-            
+            images, result_latent = self.decoder([codes],
+                                                input_is_latent=input_is_latent,
+                                                randomize_noise=randomize_noise,
+                                                return_latents=return_latents)
 
         if resize:
             images = self.face_pool(images)
