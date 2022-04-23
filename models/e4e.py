@@ -108,6 +108,7 @@ class e4e(nn.Module):
                                                 randomize_noise=randomize_noise,
                                                 return_latents=return_latents)
         elif self.opts.decoder_type == 'MobileStyleGAN':
+            codes.squeeze_(0)
             print(f"codes: {codes.shape}")
             images, result_latent = self.decoder(codes)
 
