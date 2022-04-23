@@ -37,6 +37,11 @@ class e4e(nn.Module):
             cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
             cfg = load_cfg(cfg_path)
             self.decoder = Distiller(cfg)
+            
+            # Delete synthesis_net to save GPU RAM.
+            del self.decoder.synthesis_net
+            
+            # Get latent Average.
             self.latent_avg = self.decoder.compute_mean_style(style_dim=512, wsize=self.n_styles)
             print(f"latent_avg shape: {self.latent_avg.shape}")
         
