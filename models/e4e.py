@@ -115,7 +115,7 @@ class e4e(nn.Module):
         elif self.opts.decoder_type == 'MobileStyleGAN':
             codes.squeeze_(0)
             # print(f"codes: {codes.shape}")
-            images, result_latent = self.decoder(codes,
+            images = self.decoder(codes,
                                                 return_latents=return_latents)
             print(type(images))
             print(len(images))
