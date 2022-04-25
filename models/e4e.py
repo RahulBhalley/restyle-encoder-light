@@ -119,6 +119,10 @@ class e4e(nn.Module):
                                   return_latents=return_latents)
 
         if resize:
+            print(type(images))
+            print(len(images))
+            for item in images:
+                print(type(item))
             images = self.face_pool(images)
 
         if return_latents:
