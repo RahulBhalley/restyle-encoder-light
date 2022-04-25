@@ -122,7 +122,7 @@ class e4e(nn.Module):
             print(type(images))
             print(len(images))
             for item in images:
-                print(type(item))
+                print(type(item), item.shape)
             images = self.face_pool(images)
 
         if return_latents:
