@@ -117,6 +117,10 @@ class e4e(nn.Module):
             # print(f"codes: {codes.shape}")
             images, result_latent = self.decoder(codes,
                                                 return_latents=return_latents)
+            print(type(images))
+            print(len(images))
+            for item in images:
+                print(type(item), item.shape)
 
         if resize:
             images = self.face_pool(images)
