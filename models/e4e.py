@@ -121,8 +121,12 @@ class e4e(nn.Module):
             print(f"return_latents: {return_latents}")
             codes.squeeze_(0)
             # print(f"codes: {codes.shape}")
-            images = self.decoder(codes,
-                                    return_latents=return_latents)
+            c:
+                images, result_latent = self.decoder(codes,
+                                                    return_latents=return_latents)
+            else:
+                images = self.decoder(codes,
+                                        return_latents=return_latents)
             # print(type(images))
             # print(len(images))
             # for item in images:
