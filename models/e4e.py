@@ -108,6 +108,7 @@ class e4e(nn.Module):
             input_is_latent = (not input_code) or (input_is_full)
         
         print("Do we even run e4e?")
+        print(f"self.opts.decoder_type: {self.opts.decoder_type}")
 
         if self.opts.decoder_type == 'StyleGAN2':
             print("We run StyleGAN2 function.")
@@ -116,6 +117,7 @@ class e4e(nn.Module):
                                                 randomize_noise=randomize_noise,
                                                 return_latents=return_latents)
         elif self.opts.decoder_type == 'MobileStyleGAN':
+            print("We run MobileStyleGAN function.")
             codes.squeeze_(0)
             # print(f"codes: {codes.shape}")
             images = self.decoder(codes,
