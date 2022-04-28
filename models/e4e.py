@@ -127,6 +127,9 @@ class e4e(nn.Module):
             # images = out[0]
             # result_latent = out[1]
 
+            print(images[0])
+            print(images[1])
+
         if resize:
             images = self.face_pool(images)
 
