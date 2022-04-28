@@ -108,6 +108,7 @@ class e4e(nn.Module):
             input_is_latent = (not input_code) or (input_is_full)
 
         if self.opts.decoder_type == 'StyleGAN2':
+            print("We run StyleGAN2 function.")
             images, result_latent = self.decoder([codes],
                                                 input_is_latent=input_is_latent,
                                                 randomize_noise=randomize_noise,
