@@ -123,18 +123,18 @@ class e4e(nn.Module):
             # print(f"codes: {codes.shape}")
             images = self.decoder(codes,
                                     return_latents=return_latents)
-            print(type(images))
-            print(len(images))
-            for item in images:
-                print(type(item), item.shape)
+            # print(type(images))
+            # print(len(images))
+            # for item in images:
+            #     print(type(item), item.shape)
             
-            for idx, item in enumerate(images):
-                print(f"item: {idx}", item)
+            # for idx, item in enumerate(images):
+            #     print(f"item: {idx}", item)
             # images = out[0]
             # result_latent = out[1]
 
-            print(images[0])
-            print(images[1])
+            # print(images[0])
+            # print(images[1])
 
         if resize:
             images = self.face_pool(images)
