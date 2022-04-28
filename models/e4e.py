@@ -106,6 +106,8 @@ class e4e(nn.Module):
             input_is_latent = True
         else:
             input_is_latent = (not input_code) or (input_is_full)
+        
+        print("Do we even run e4e?")
 
         if self.opts.decoder_type == 'StyleGAN2':
             print("We run StyleGAN2 function.")
