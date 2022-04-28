@@ -122,7 +122,8 @@ class e4e(nn.Module):
             for item in images:
                 print(type(item), item.shape)
             
-            print(images)
+            for idx, item in enumerate(images):
+                print(f"item: {idx}", item)
             # images = out[0]
             # result_latent = out[1]
 
