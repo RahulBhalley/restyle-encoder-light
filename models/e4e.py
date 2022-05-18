@@ -4,6 +4,7 @@ This file defines the core research contribution
 import math
 import torch
 from torch import nn
+from MobileStyleGAN.core.model_zoo import model_zoo
 
 from models.stylegan2.model import Generator
 from MobileStyleGAN.core.distiller import Distiller
@@ -34,10 +35,16 @@ class e4e(nn.Module):
             # Load StyleGAN's weights, if needed.
             self.load_weights()
         elif self.opts.decoder_type == 'MobileStyleGAN':
+            
+            # Initialize Distiller.
             cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
             cfg = load_cfg(cfg_path)
             self.decoder = Distiller(cfg)
             
+            # Load student checkpoint.
+            student_ckpt = model_zoo("pretrained_models/mobilestylegan_ffhq_v2.ckpt")
+            load_weights(self.decoder, student_ckpt['state_dict'])
+
             # Delete synthesis_net to save GPU RAM.
             del self.decoder.synthesis_net
             
