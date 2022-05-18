@@ -41,11 +41,15 @@ class Coach:
 			self.net.latent_avg = self.net.decoder.mean_latent(int(1e5))[0].detach()
 
 		# get the image corresponding to the latent average
-		self.avg_image = self.net(self.net.latent_avg.unsqueeze(0),
-								  input_code=True,
-								  randomize_noise=False,
-								  return_latents=False,
-								  average_code=True)[0]
+		if self.opts.decoder_type == 'StyleGAN2':
+			self.avg_image = self.net(self.net.latent_avg.unsqueeze(0),
+									input_code=True,
+									randomize_noise=False,
+									return_latents=False,
+									average_code=True)[0]
+		elif self.opts.decoder_type == 'MobileStyleGAN':
+			self.avg_image = self.net.student(self.net.latent_avg)['img']
+		
 		self.avg_image = self.avg_image.to(self.device).float().detach()
 		if self.opts.dataset_type == "cars_encode":
 			self.avg_image = self.avg_image[:, 32:224, :]
