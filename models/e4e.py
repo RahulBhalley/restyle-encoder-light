@@ -42,7 +42,7 @@ class e4e(nn.Module):
             del self.decoder.synthesis_net
             
             # Get latent Average.
-            self.latent_avg = self.decoder.compute_mean_style(style_dim=512, wsize=self.n_styles)
+            self.latent_avg = self.decoder.style_mean
             print(f"latent_avg shape: {self.latent_avg.shape}")
         
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
