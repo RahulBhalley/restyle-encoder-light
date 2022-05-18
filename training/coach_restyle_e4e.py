@@ -48,7 +48,7 @@ class Coach:
 									return_latents=False,
 									average_code=True)[0]
 		elif self.opts.decoder_type == 'MobileStyleGAN':
-			self.avg_image = self.net.student(self.net.latent_avg)['img']
+			self.avg_image = self.net.decoder.student(self.net.latent_avg)['img']
 		
 		self.avg_image = self.avg_image.to(self.device).float().detach()
 		if self.opts.dataset_type == "cars_encode":
