@@ -114,6 +114,8 @@ class e4e(nn.Module):
         else:
             input_is_latent = (not input_code) or (input_is_full)
         
+        print(f"input_is_latent: {input_is_latent}")
+
         # print("Do we even run e4e?")
         # print(f"self.opts.decoder_type: {self.opts.decoder_type}")
 
