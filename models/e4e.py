@@ -138,6 +138,7 @@ class e4e(nn.Module):
             #     images = self.decoder(codes,
             #                         return_latents=return_latents)
             images, result_latent = self.decoder(codes,
+                                                input_is_latent=input_is_latent,
                                                 return_latents=return_latents)
             # print(type(images))
             # print(len(images))
