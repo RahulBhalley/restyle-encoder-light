@@ -164,6 +164,9 @@ class e4e(nn.Module):
 
             # print(images[0])
             # print(images[1])
+            print(f"codes: {codes.shape}")
+            print(f"images (y_hat): {images.shape}")
+            print(f"result_latent (latent): {result_latent.shape}")
 
         if resize:
             images = self.face_pool(images)
