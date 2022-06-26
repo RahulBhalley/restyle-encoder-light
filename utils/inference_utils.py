@@ -24,6 +24,8 @@ def run_on_batch(inputs, net, opts, avg_image):
             print(f"avg_image_for_batch: {avg_image_for_batch.shape}")
             print(f"x_input: {x_input.shape}")
         else:
+            print(f"inputs: {inputs.shape}")
+            print(f"y_hat: {y_hat.shape}")
             x_input = torch.cat([inputs, y_hat], dim=1)
             print(f"x_input: {x_input.shape}")
 
