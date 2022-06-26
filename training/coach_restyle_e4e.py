@@ -434,13 +434,13 @@ class Coach:
 			'state_dict': self.net.state_dict(),
 			'opts': vars(self.opts),
 			'global_step': self.global_step,
-			# 'optimizer': self.optimizer.state_dict(),
+			'optimizer': self.optimizer.state_dict(),
 			'best_val_loss': self.best_val_loss,
 			'latent_avg': self.net.latent_avg
 		}
-		# if self.opts.w_discriminator_lambda > 0:
-		# 	save_dict['discriminator_state_dict'] = self.discriminator.state_dict()
-		# 	save_dict['discriminator_optimizer_state_dict'] = self.discriminator_optimizer.state_dict()
+		if self.opts.w_discriminator_lambda > 0:
+			save_dict['discriminator_state_dict'] = self.discriminator.state_dict()
+			save_dict['discriminator_optimizer_state_dict'] = self.discriminator_optimizer.state_dict()
 		return save_dict
 
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Util Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
