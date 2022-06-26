@@ -8,7 +8,7 @@ from MobileStyleGAN.core.model_zoo import model_zoo
 
 from models.stylegan2.model import Generator
 from MobileStyleGAN.core.distiller import Distiller
-from MobileStyleGAN.core.utils import load_cfg, load_weights
+from MobileStyleGAN.core.utils import load_cfg, load_weights as load_mobilestylegan_weights
 from configs.paths_config import model_paths
 from models.encoders import restyle_e4e_encoders
 from utils.model_utils import RESNET_MAPPING
@@ -28,30 +28,28 @@ class e4e(nn.Module):
         
         print(f'n_styles: {self.n_styles}')
         
-        # Define encoder and decoder architectures.
+        # Initialize encoder.
         self.encoder = self.set_encoder()
+
+        # Initialize decoder.
         if self.opts.decoder_type == 'StyleGAN2':
+
+            # Initialize StyleGAN2.
             self.decoder = Generator(self.opts.output_size, 512, 8, channel_multiplier=2)
-            # Load StyleGAN's weights, if needed.
-            self.load_weights()
+
         elif self.opts.decoder_type == 'MobileStyleGAN':
             
-            # Initialize Distiller.
+            # Initialize Distiller i.e. MobileStyleGAN.
             cfg_path = 'MobileStyleGAN/configs/mobile_stylegan_ffhq.json'
             cfg = load_cfg(cfg_path)
             self.decoder = Distiller(cfg)
             
-            # Load student checkpoint.
-            student_ckpt = model_zoo("pretrained_models/mobilestylegan_ffhq_v2.ckpt")
-            load_weights(self.decoder, student_ckpt['state_dict'])
-
             # Delete synthesis_net to save GPU RAM.
             del self.decoder.synthesis_net
-            
-            # Get latent Average.
-            self.latent_avg = self.decoder.style_mean
-            print(f"latent_avg shape: {self.latent_avg.shape}")
+            print("synthesis_net (StyleGAN2) from Distiller is deleted.")
         
+        # Load encoder (MobileStyleGAN or StyleGAN2), decoder (ReStyle) (pretrained / previous) checkpoints.
+        self.load_weights()
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
         
 
@@ -71,19 +69,33 @@ class e4e(nn.Module):
         return encoder
 
     def load_weights(self):
+
+        # If we have ReStyle checkpoint.
         if self.opts.checkpoint_path is not None:
-            print(f'Loading ReStyle e4e from checkpoint: {self.opts.checkpoint_path}')
+            print(f'Loading encoder, decoder, and latent_avg from ReStyle checkpoint: {self.opts.checkpoint_path}')
             ckpt = torch.load(self.opts.checkpoint_path, map_location='cpu')
             self.encoder.load_state_dict(self.__get_keys(ckpt, 'encoder'), strict=False)
             self.decoder.load_state_dict(self.__get_keys(ckpt, 'decoder'), strict=True)
             self.__load_latent_avg(ckpt)
-        else:
+        # If we don't have ReStyle checkpoint.
+        # Run for a specific decoder.
+        elif self.opts.decoder_type == 'StyleGAN2':
+            print("Loading pretrained encoder checkpoints.")
             encoder_ckpt = self.__get_encoder_checkpoint()
             self.encoder.load_state_dict(encoder_ckpt, strict=False)
-            print(f'Loading decoder weights from pretrained path: {self.opts.stylegan_weights}')
+            print(f'Loading decoder and latent_avg from pretrained StyleGAN2 checkpoint: {self.opts.stylegan_weights}')
             ckpt = torch.load(self.opts.stylegan_weights)
             self.decoder.load_state_dict(ckpt['g_ema'], strict=True)
             self.__load_latent_avg(ckpt, repeat=self.n_styles)
+        elif self.opts.decoder_type == 'MobileStyleGAN':
+            print("Loading pretrained encoder checkpoints.")
+            encoder_ckpt = self.__get_encoder_checkpoint()
+            self.encoder.load_state_dict(encoder_ckpt, strict=False)
+            print("Loading pretrained MobileStyleGAN.")
+            student_ckpt = model_zoo("pretrained_models/mobilestylegan_ffhq_v2.ckpt")
+            load_mobilestylegan_weights(self.decoder, student_ckpt['state_dict'])
+            self.latent_avg = self.decoder.style_mean
+            print(f"latent_avg shape: {self.latent_avg.shape}")
 
     def forward(self, x, latent=None, resize=True, latent_mask=None, input_code=False, randomize_noise=True,
                 inject_latent=None, return_latents=False, alpha=None, average_code=False, input_is_full=False):
@@ -170,6 +182,7 @@ class e4e(nn.Module):
             if repeat is not None:
                 self.latent_avg = self.latent_avg.repeat(repeat, 1)
         else:
+            print("Couldn't find latent_avg in checkpoint.")
             self.latent_avg = None
 
     def __get_encoder_checkpoint(self):
