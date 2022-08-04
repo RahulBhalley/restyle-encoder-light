@@ -12,6 +12,26 @@ def get_average_image(net, opts):
         avg_image = avg_image[:, 32:224, :]
     return avg_image
 
+def my_run_on_batch(x, net, opts, avg_image):
+    y_hat, latent = None, None
+    y_hats = {idx: {} for idx in range(x.shape[0])}
+    
+    for iter in range(opts.n_iters_per_batch):
+        if iter == 0:
+            avg_image_for_batch = avg_image.unsqueeze(0).repeat(x.shape[0], 1, 1, 1)
+            x_input = torch.cat([x, avg_image_for_batch], dim=1)
+            print(f"avg_image_for_batch: {avg_image_for_batch.shape}")
+            print(f"x_input: {x_input.shape}")
+            # latent will be None at start
+            y_hat, latent = net.forward(x_input, latent=None, randomize_noise=False, return_latents=True, resize=opts.resize_outputs)
+            print(f"y_hat: {y_hat.shape}")
+            print(f"latent: {latent.shape}")
+        else:
+            x_input = torch.cat([x_input, y_hat], dim=1)
+            y_hat, latent = net.forward(x_input, latent=latent, randomize_noise=False, return_latents=True, resize=opts.resize_outputs)
+            
+
+
 
 def run_on_batch(inputs, net, opts, avg_image):
     y_hat, latent = None, None
