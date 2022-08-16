@@ -138,14 +138,26 @@ class Coach:
 		y_hats = {idx: [] for idx in range(x.shape[0])}
 		for iter in range(self.opts.n_iters_per_batch):
 			if iter == 0:
+				print("*** iter == 0 ***")
+				print(f"x: {x.shape}")
 				avg_image_for_batch = self.avg_image.unsqueeze(0).repeat(x.shape[0], 1, 1, 1)
+				print(f"avg_image_for_batch: {avg_image_for_batch.shape}")
 				x_input = torch.cat([x, avg_image_for_batch], dim=1)
+				print(f"x_input: {x_input.shape}")
 				y_hat, latent = self.net.forward(x_input, latent=None, return_latents=True)
+				print(f"y_hat: {y_hat.shape}")
+				print(f"latent: {latent.shape}")
 			else:
+				print("*** iter != 0 ***")
 				y_hat_clone = y_hat.clone().detach().requires_grad_(True)
+				print(f"y_hat_clone: {y_hat_clone.shape}")
 				latent_clone = latent.clone().detach().requires_grad_(True)
+				print(f"latent_clone: {latent_clone.shape}")
 				x_input = torch.cat([x, y_hat_clone], dim=1)
+				print(f"x_input: {x_input.shape}")
 				y_hat, latent = self.net.forward(x_input, latent=latent_clone, return_latents=True)
+				print(f"y_hat: {y_hat.shape}")
+				print(f"latent: {latent.shape}")
 
 			if self.opts.dataset_type == "cars_encode":
 				y_hat = y_hat[:, :, 32:224, :]
