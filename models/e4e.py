@@ -141,8 +141,9 @@ class e4e(nn.Module):
         elif self.opts.decoder_type == 'MobileStyleGAN':
             # print("We run MobileStyleGAN function.")
             # print(f"return_latents: {return_latents}")
+            print(f"codes (before codes.squeeze_(0)): {codes.shape}")
             codes.squeeze_(0)
-            # print(f"codes: {codes.shape}")
+            print(f"codes (after codes.squeeze_(0)): {codes.shape}")
             # if return_latents:
             #     images, result_latent = self.decoder(codes,
             #                                         return_latents=return_latents)
