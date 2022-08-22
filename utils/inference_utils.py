@@ -1,6 +1,5 @@
 import torch
 
-
 def get_average_image(net, opts):
     avg_image = net(net.latent_avg.unsqueeze(0),
                     input_code=True,
@@ -30,9 +29,6 @@ def my_run_on_batch(x, net, opts, avg_image):
             x_input = torch.cat([x_input, y_hat], dim=1)
             y_hat, latent = net.forward(x_input, latent=latent, randomize_noise=False, return_latents=True, resize=opts.resize_outputs)
             
-
-
-
 def run_on_batch(inputs, net, opts, avg_image):
     y_hat, latent = None, None
     results_batch = {idx: [] for idx in range(inputs.shape[0])}
