@@ -79,7 +79,7 @@ class ProgressiveBackboneEncoder(Module):
 
         # get initial w0 from first map2style layer
         w0 = self.styles[0](x)
-        print(f"w0 shape before repeat (or tile): {w0.shape}")
+        # print(f"w0 shape before repeat (or tile): {w0.shape}")
         w = w0.repeat(self.style_count, 1, 1).permute(1, 0, 2)
 
         # learn the deltas up to the current stage
