@@ -12,13 +12,12 @@ sys.path.append(".")
 sys.path.append("..")
 
 from configs import data_configs
-from ..datasets.inference_dataset import InferenceDataset
+from datasets.inference_dataset import InferenceDataset
 from editing.latent_editor import LatentEditor
 from models.e4e import e4e
 from options.test_options import TestOptions
 from utils.common import tensor2im
 from utils.inference_utils import get_average_image, run_on_batch
-
 
 def run():
     """
