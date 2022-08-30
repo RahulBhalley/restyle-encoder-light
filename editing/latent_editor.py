@@ -28,6 +28,13 @@ class LatentEditor(object):
         sample_results = {}
         with torch.no_grad():
             for idx, sample_latents in enumerate(all_latents):
-                images, _ = self.generator([sample_latents], randomize_noise=False, input_is_latent=True)
+                # images, _ = self.generator([sample_latents], randomize_noise=False, input_is_latent=True)
+                
+                # Fixed the arguments for MobileStyleGAN generator.
+                # images, _ = self.generator([sample_latents], randomize_noise=False, input_is_latent=True)
+                images = self.decoder(sample_latents,
+                                        input_is_latent=True,
+                                        return_latents=False)
+
                 sample_results[idx] = [tensor2im(image) for image in images]
         return sample_results
