@@ -12,7 +12,7 @@ sys.path.append(".")
 sys.path.append("..")
 
 from configs import data_configs
-from datasets.inference_dataset import InferenceDataset
+from ..datasets.inference_dataset import InferenceDataset
 from editing.latent_editor import LatentEditor
 from models.e4e import e4e
 from options.test_options import TestOptions
