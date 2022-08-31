@@ -41,5 +41,6 @@ class LatentEditor(object):
                     else:
                         print(type(image))
 
-                sample_results[idx] = [tensor2im(image) for image in images]
+                # sample_results[idx] = [tensor2im(image) for image in images]
+                sample_results = [tensor2im(images[0]) for _ in range(len(images))]
         return sample_results
