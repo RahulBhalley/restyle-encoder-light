@@ -36,7 +36,10 @@ class LatentEditor(object):
                                         input_is_latent=False,
                                         return_latents=False)
                 for image in images:
-                    print(type(image), image.shape)
+                    if isinstance(image, torch.Tensor):
+                        print(image.type(), image.shape)
+                    else:
+                        print(type(image))
 
                 sample_results[idx] = [tensor2im(image) for image in images]
         return sample_results
