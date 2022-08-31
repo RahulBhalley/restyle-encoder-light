@@ -32,11 +32,11 @@ class LatentEditor(object):
                 
                 # Fixed the arguments for MobileStyleGAN generator.
                 # images, _ = self.decoder([sample_latents], randomize_noise=False, input_is_latent=True)
-                images = self.decoder(sample_latents,
+                images, _ = self.decoder(sample_latents,
                                         input_is_latent=False,
                                         return_latents=False)
                 
-                print(f"images len: {len(images)}")
+                # print(f"images len: {len(images)}")
 
                 for image in images:
                     if isinstance(image, torch.Tensor):
