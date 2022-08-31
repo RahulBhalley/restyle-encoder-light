@@ -35,6 +35,8 @@ class LatentEditor(object):
                 images = self.decoder(sample_latents,
                                         input_is_latent=True,
                                         return_latents=False)
+                for image in images:
+                    print(type(image), image.shape)
 
                 sample_results[idx] = [tensor2im(image) for image in images]
         return sample_results
