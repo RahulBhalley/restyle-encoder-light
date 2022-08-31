@@ -131,8 +131,8 @@ def edit_batch(inputs, net, avg_image, latent_editor, opts):
                                                     direction=edit_direction,
                                                     factor_range=(-1 * factor_range, factor_range))
         # store the results for each sample
-        # for idx, sample_res in edit_res.items():
-        for idx, sample_res in enumerate(edit_res):
+        for idx, sample_res in edit_res.items():
+        # for idx, sample_res in enumerate(edit_res):
             results[idx][edit_direction] = sample_res
     return results
 
