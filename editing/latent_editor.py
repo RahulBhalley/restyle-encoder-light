@@ -5,7 +5,7 @@ from utils.common import tensor2im
 class LatentEditor(object):
 
     def __init__(self, stylegan_generator):
-        self.generator = stylegan_generator
+        self.decoder = stylegan_generator
         self.interfacegan_directions = {
             'age': torch.load('editing/interfacegan_directions/age.pt').cuda(),
             'smile': torch.load('editing/interfacegan_directions/smile.pt').cuda(),
@@ -28,10 +28,10 @@ class LatentEditor(object):
         sample_results = {}
         with torch.no_grad():
             for idx, sample_latents in enumerate(all_latents):
-                # images, _ = self.generator([sample_latents], randomize_noise=False, input_is_latent=True)
+                # images, _ = self.decoder([sample_latents], randomize_noise=False, input_is_latent=True)
                 
                 # Fixed the arguments for MobileStyleGAN generator.
-                # images, _ = self.generator([sample_latents], randomize_noise=False, input_is_latent=True)
+                # images, _ = self.decoder([sample_latents], randomize_noise=False, input_is_latent=True)
                 images = self.decoder(sample_latents,
                                         input_is_latent=True,
                                         return_latents=False)
