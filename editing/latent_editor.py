@@ -33,7 +33,7 @@ class LatentEditor(object):
                 # Fixed the arguments for MobileStyleGAN generator.
                 # images, _ = self.decoder([sample_latents], randomize_noise=False, input_is_latent=True)
                 images = self.decoder(sample_latents,
-                                        input_is_latent=True,
+                                        input_is_latent=False,
                                         return_latents=False)
                 for image in images:
                     print(type(image), image.shape)
