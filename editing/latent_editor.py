@@ -35,6 +35,9 @@ class LatentEditor(object):
                 images = self.decoder(sample_latents,
                                         input_is_latent=False,
                                         return_latents=False)
+                
+                print(f"images len: {len(images)}")
+
                 for image in images:
                     if isinstance(image, torch.Tensor):
                         print(image.type(), image.shape)
