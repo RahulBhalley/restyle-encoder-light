@@ -58,7 +58,7 @@ class pSp(nn.Module):
             print("[pSp] if input_code:")
             codes = x
         else:
-            print("[pSp] else:")
+            print("[pSp] input_code else:")
             codes = self.encoder(x)
             # residual step
             if x.shape[1] == 6 and latent is not None:
@@ -83,7 +83,7 @@ class pSp(nn.Module):
             print("[pSp] if average_code:")
             input_is_latent = True
         else:
-            print("[pSp] else:")
+            print("[pSp] average_code else:")
             input_is_latent = (not input_code) or (input_is_full)
 
         images, result_latent = self.decoder([codes],
@@ -98,7 +98,7 @@ class pSp(nn.Module):
             print("[pSp] if return_latents:")
             return images, result_latent
         else:
-            print("[pSp] else:")
+            print("[pSp] return_latents else:")
             return images
 
     def set_opts(self, opts):
