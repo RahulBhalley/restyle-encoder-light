@@ -60,6 +60,7 @@ class pSp(nn.Module):
         else:
             print("[pSp] input_code else:")
             codes = self.encoder(x)
+            print(f"codes: {codes.shape}")
             # residual step
             if x.shape[1] == 6 and latent is not None:
                 # learn error with respect to previous iteration
