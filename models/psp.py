@@ -55,10 +55,10 @@ class pSp(nn.Module):
     def forward(self, x, latent=None, resize=True, latent_mask=None, input_code=False, randomize_noise=True,
                 inject_latent=None, return_latents=False, alpha=None, average_code=False, input_is_full=False):
         if input_code:
-            print("if input_code:")
+            print("[pSp] if input_code:")
             codes = x
         else:
-            print("else:")
+            print("[pSp] else:")
             codes = self.encoder(x)
             # residual step
             if x.shape[1] == 6 and latent is not None:
@@ -69,7 +69,7 @@ class pSp(nn.Module):
                 codes = codes + self.latent_avg.repeat(codes.shape[0], 1, 1)
 
         if latent_mask is not None:
-            print("if latent_mask is not None:")
+            print("[pSp] if latent_mask is not None:")
             for i in latent_mask:
                 if inject_latent is not None:
                     if alpha is not None:
@@ -80,10 +80,10 @@ class pSp(nn.Module):
                     codes[:, i] = 0
 
         if average_code:
-            print("if average_code:")
+            print("[pSp] if average_code:")
             input_is_latent = True
         else:
-            print("else:")
+            print("[pSp] else:")
             input_is_latent = (not input_code) or (input_is_full)
 
         images, result_latent = self.decoder([codes],
@@ -95,10 +95,10 @@ class pSp(nn.Module):
             images = self.face_pool(images)
 
         if return_latents:
-            print("if return_latents:")
+            print("[pSp] if return_latents:")
             return images, result_latent
         else:
-            print("else:")
+            print("[pSp] else:")
             return images
 
     def set_opts(self, opts):

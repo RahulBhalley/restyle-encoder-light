@@ -37,13 +37,13 @@ def run_on_batch(inputs, net, opts, avg_image):
         if iter == 0:
             avg_image_for_batch = avg_image.unsqueeze(0).repeat(inputs.shape[0], 1, 1, 1)
             x_input = torch.cat([inputs, avg_image_for_batch], dim=1)
-            print(f"avg_image_for_batch: {avg_image_for_batch.shape}")
-            print(f"x_input: {x_input.shape}")
+            print(f"[run_on_batch] avg_image_for_batch: {avg_image_for_batch.shape}")
+            print(f"[run_on_batch] x_input: {x_input.shape}")
         else:
-            print(f"inputs: {inputs.shape}")
-            print(f"y_hat: {y_hat.shape}")
+            print(f"[run_on_batch] inputs: {inputs.shape}")
+            print(f"[run_on_batch] y_hat: {y_hat.shape}")
             x_input = torch.cat([inputs, y_hat], dim=1)
-            print(f"x_input: {x_input.shape}")
+            print(f"[run_on_batch] x_input: {x_input.shape}")
 
         y_hat, latent = net.forward(x_input,
                                     latent=latent,
