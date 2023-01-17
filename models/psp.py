@@ -59,6 +59,7 @@ class pSp(nn.Module):
             codes = x
         else:
             print("[pSp] input_code else:")
+            print(f"x: {x.shape}")
             codes = self.encoder(x)
             print(f"codes: {codes.shape}")
             # residual step
